@@ -51,6 +51,20 @@ class ProductController extends BaseController{
         $product->save();
         return $this->sendResponse(new ProductResource($product), "Termék adatai módosítva");
     }
+    public function search($name){
+        $product = Product::where('name', 'like', '%'.$name.'%')->get();
+        if(count($product)==0){
+            return $this->sendError("Nincs találat a keresésre");
+        }
+        return $this->sendResponse($product, "Keresési találatok betöltve");
+    }
+    public function filter($material){
+        $product = Product::where('material', '=', $material)->get();
+        if(count($product)==0){
+            return $this->sendError("Nincs találat a szűrésre");
+        }
+        return $this->sendResponse($product, "Szűrési találatok betöltve");
+    }
     public function destroy(Product $product){
         $product->delete();
         return $this->sendResponse( [], "Termék törölve");
