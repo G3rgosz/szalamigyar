@@ -27,10 +27,10 @@ class AuthController extends BaseController {
     }
 
     public function login( Request $request ) {
-        if( Auth::attempt([ "name" => $request->name, "password" => $request->password ])) {
+        if( Auth::attempt([ "email" => $request->email, "password" => $request->password ])) {
             $authUser = Auth::user();
             $success[ "token" ] = $authUser->createToken( "myapitoken" )->plainTextToken;
-            $success[ "name" ] = $authUser->name;
+            $success[ "email" ] = $authUser->email;
             return $this->sendResponse( $success, "Sikeres bejelentkezés" );
         }else {
             return $this->sendError( "Sikertelen bejelentkezés", [ "error" => "Hibás adatok" ]);
