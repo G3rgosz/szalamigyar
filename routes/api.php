@@ -18,9 +18,9 @@ use App\Http\Controllers\AuthController;
 Route::group(["middleware" => ["auth:sanctum"]], function(){
     Route::post("/logout", [AuthController::class, "logout"]);
     
-    Route::post("/products", [ProductController::class, "store"]);
+    Route::post("/products", [ProductController::class, "create"]);
     Route::put("/products/{product}", [ProductController::class, "update"]);
-    Route::delete("/products/{product}", [ProductController::class, "destroy"]);
+    Route::delete("/products/{id}", [ProductController::class, "destroy"]);
 }); 
 
 Route::post("/register", [AuthController::class, "register"]);
